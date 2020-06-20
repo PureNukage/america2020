@@ -1,0 +1,1 @@
+if debug.on draw_self()
