@@ -9,7 +9,7 @@
     {"id":{"name":"s_unit_64x64","path":"sprites/s_unit_64x64/s_unit_64x64.yy",},"order":2,},
     {"id":{"name":"input","path":"objects/input/input.yy",},"order":2,},
     {"id":{"name":"debug","path":"objects/debug/debug.yy",},"order":3,},
-    {"id":{"name":"s_tile","path":"sprites/s_tile/s_tile.yy",},"order":0,},
+    {"id":{"name":"s_tile_grass","path":"sprites/s_tile_grass/s_tile_grass.yy",},"order":0,},
     {"id":{"name":"time","path":"objects/time/time.yy",},"order":5,},
     {"id":{"name":"unit","path":"objects/unit/unit.yy",},"order":4,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":0,},

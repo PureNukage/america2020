@@ -58,10 +58,12 @@ function draw_grid() {
 			var xx = iso_to_scr_x(w, h)
 			var yy = iso_to_scr_y(w, h)
 		
-			draw_line(xx,yy,xx+cellWidth,yy+(cellHeight/2))
-			draw_line(xx+cellWidth,yy+(cellHeight/2),xx,yy+cellHeight)
-			draw_line(xx,yy+cellHeight,xx-cellWidth,yy+(cellHeight/2))
-			draw_line(xx-cellWidth,yy+(cellHeight/2),xx,yy)
+			//draw_line(xx,yy,xx+cellWidth,yy+(cellHeight/2))
+			//draw_line(xx+cellWidth,yy+(cellHeight/2),xx,yy+cellHeight)
+			//draw_line(xx,yy+cellHeight,xx-cellWidth,yy+(cellHeight/2))
+			//draw_line(xx-cellWidth,yy+(cellHeight/2),xx,yy)
+			
+			draw_sprite(s_tile_grass,0,xx,yy+cellHeight/2)
 		
 			if debug.on draw_text(xx,yy,string(w)+","+string(h))
 		
