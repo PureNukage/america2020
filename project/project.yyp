@@ -1,16 +1,17 @@
 {
   "resources": [
     {"id":{"name":"app","path":"objects/app/app.yy",},"order":0,},
-    {"id":{"name":"debugBeacon","path":"objects/debugBeacon/debugBeacon.yy",},"order":5,},
+    {"id":{"name":"debugBeacon","path":"objects/debugBeacon/debugBeacon.yy",},"order":6,},
     {"id":{"name":"s_questionMark","path":"sprites/s_questionMark/s_questionMark.yy",},"order":3,},
     {"id":{"name":"definitions","path":"scripts/definitions/definitions.yy",},"order":0,},
     {"id":{"name":"s_unit","path":"sprites/s_unit/s_unit.yy",},"order":1,},
     {"id":{"name":"grid","path":"objects/grid/grid.yy",},"order":1,},
     {"id":{"name":"s_unit_64x64","path":"sprites/s_unit_64x64/s_unit_64x64.yy",},"order":2,},
-    {"id":{"name":"debug","path":"objects/debug/debug.yy",},"order":2,},
+    {"id":{"name":"input","path":"objects/input/input.yy",},"order":2,},
+    {"id":{"name":"debug","path":"objects/debug/debug.yy",},"order":3,},
     {"id":{"name":"s_tile","path":"sprites/s_tile/s_tile.yy",},"order":0,},
-    {"id":{"name":"time","path":"objects/time/time.yy",},"order":4,},
-    {"id":{"name":"unit","path":"objects/unit/unit.yy",},"order":3,},
+    {"id":{"name":"time","path":"objects/time/time.yy",},"order":5,},
+    {"id":{"name":"unit","path":"objects/unit/unit.yy",},"order":4,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":0,},
   ],
   "Options": [
