@@ -1,4 +1,5 @@
 if on {
+	draw_set_color(c_white)
 	var xx = 15
 	var yy = 15
 

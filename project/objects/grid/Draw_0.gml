@@ -1,58 +1,46 @@
-draw_set_color(c_white)
+////	Grid lines
+if surface_exists(grid_surface) {
+	draw_surface(grid_surface,0,0)
+} else {
+	draw_grid()	
+}
 
-var cell_mouseover = false
-for(var h=0;h<gridHeight;h++) {
-	for(var w=0;w<gridWidth;w++) {
-		
-		var xx = iso_to_scr_x(w, h)
-		var yy = iso_to_scr_y(w, h)
-		
-		var top_pointX = xx
-		var top_pointY = yy
-		
-		var right_pointX = xx+cellWidth
-		var right_pointY = yy+(cellHeight/2)
-		
-		var bottom_pointX = xx
-		var bottom_pointY = yy+cellHeight
-		
-		var left_pointX = xx-cellWidth
-		var left_pointY = yy+(cellHeight/2)
-		
-		//if point_in_triangle(mouse_x,mouse_y,top_pointX,top_pointY,right_pointX,right_pointY+1,left_pointX,left_pointY+1)
-		//or point_in_triangle(mouse_x,mouse_y,bottom_pointX,bottom_pointY,right_pointX,right_pointY-1,left_pointX,left_pointY-1) {
-		//	mouseX = w
-		//	mouseY = h
-		//	cell_mouseover = true
-		//}
-		
-		////	DEBUG
-		if debug.on {
-			//draw_set_color(c_red)
-			//draw_triangle(top_pointX,top_pointY,right_pointX,right_pointY,left_pointX,left_pointY,false)
-			//draw_triangle(bottom_pointX,bottom_pointY,right_pointX,right_pointY,left_pointX,left_pointY,false)
-		}	
-		
-		draw_set_color(c_white)
-		
-		draw_line(xx,yy,xx+cellWidth,yy+(cellHeight/2))
-		draw_line(xx+cellWidth,yy+(cellHeight/2),xx,yy+cellHeight)
-		draw_line(xx,yy+cellHeight,xx-cellWidth,yy+(cellHeight/2))
-		draw_line(xx-cellWidth,yy+(cellHeight/2),xx,yy)
-		
-		if debug.on draw_text(xx,yy,string(w)+","+string(h))
-		
+////	Draw mouse cell highlight
+if (mouseX > -1 and mouseY > -1) {
+	if objectGrid[# mouseX, mouseY] > -1 {
+		if input.selection == objectGrid[# mouseX, mouseY] {}
+		else draw_set_color(c_yellow)
+	}
+	else draw_set_color(c_white)
+	var xx = iso_to_scr_x(mouseX,mouseY)
+	var yy = iso_to_scr_y(mouseX,mouseY)
+	draw_triangle(xx,yy,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
+	draw_triangle(xx,yy+cellHeight,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
+}
+
+////	Draw selection cell highlight
+if input.selection > -1 {
+	draw_set_color(c_orange)
+	var xx = iso_to_scr_x(input.selection.cellX,input.selection.cellY)
+	var yy = iso_to_scr_y(input.selection.cellX,input.selection.cellY)
+	draw_triangle(xx,yy,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
+	draw_triangle(xx,yy+cellHeight,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
+}
+
+////	Render units
+for(var w=0;w<gridWidth;w++) {
+	for(var h=0;h<gridHeight;h++) {
 		////	Render sprite of unit inside cell
 		if objectGrid[# w, h] > -1 {
 			var Unit = objectGrid[# w, h]
 			with Unit {
 				draw_sprite(sprite_index, image_index, x, y)	
 			}
-		}
-		
+		}	
 	}
 }
 
+////	Calculate mouseX and mouseY
 mouseX = scr_x_to_iso(mouse_x,mouse_y)
 mouseY = scr_y_to_iso(mouse_x,mouse_y)
 if (mouseX < 0 or mouseX > gridWidth-1) or (mouseY < 0 or mouseY > gridHeight-1) {
@@ -60,7 +48,7 @@ if (mouseX < 0 or mouseX > gridWidth-1) or (mouseY < 0 or mouseY > gridHeight-1)
 	mouseY = -1
 }
 
-
+////	TEMP Spawn unit in a cell
 if mouseX > -1 and mouseY > -1 and mouse_check_button_pressed(mb_right) {
 	var XX = iso_to_scr_x(mouseX,mouseY)
 	var YY = iso_to_scr_y(mouseX,mouseY) + (cellHeight/2)
