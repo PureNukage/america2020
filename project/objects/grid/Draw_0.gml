@@ -34,9 +34,9 @@ for(var w=0;w<gridWidth;w++) {
 		if objectGrid[# w, h] > -1 {
 			var Unit = objectGrid[# w, h]
 			with Unit {
-				draw_sprite(sprite_index, image_index, x, y)	
+				draw_sprite(sprite_index, image_index, x, y)
 			}
-		}	
+		}
 	}
 }
 

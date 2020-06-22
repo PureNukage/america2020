@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "s_unit_64x64",
-    "path": "sprites/s_unit_64x64/s_unit_64x64.yy",
+    "name": "s_bigred",
+    "path": "sprites/s_bigred/s_bigred.yy",
   },
   "solid": false,
   "visible": true,
