@@ -1,8 +1,5 @@
 {
-  "spriteId": {
-    "name": "s_bigred",
-    "path": "sprites/s_bigred/s_bigred.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
@@ -28,8 +25,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "Units",
+    "path": "folders/Objects/Units.yy",
   },
   "resourceVersion": "1.0",
   "name": "unit",
