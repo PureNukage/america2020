@@ -1,16 +1,13 @@
 {
   "spriteId": {
-    "name": "s_trumper",
-    "path": "sprites/s_trumper/s_trumper.yy",
+    "name": "s_fbi",
+    "path": "sprites/s_fbi/s_fbi.yy",
   },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": {
-    "name": "class_unit",
-    "path": "objects/class_unit/class_unit.yy",
-  },
+  "parentObjectId": null,
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -31,7 +28,7 @@
     "path": "folders/Objects/Units.yy",
   },
   "resourceVersion": "1.0",
-  "name": "unitTrumper",
+  "name": "unitFbi",
   "tags": [],
   "resourceType": "GMObject",
 }

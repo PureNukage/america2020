@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "s_trumper",
-    "path": "sprites/s_trumper/s_trumper.yy",
+    "name": "s_scooter",
+    "path": "sprites/s_scooter/s_scooter.yy",
   },
   "solid": false,
   "visible": true,
@@ -31,7 +31,7 @@
     "path": "folders/Objects/Units.yy",
   },
   "resourceVersion": "1.0",
-  "name": "unitTrumper",
+  "name": "unitScooter",
   "tags": [],
   "resourceType": "GMObject",
 }

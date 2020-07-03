@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "s_trumper",
-    "path": "sprites/s_trumper/s_trumper.yy",
+    "name": "s_fbi",
+    "path": "sprites/s_fbi/s_fbi.yy",
   },
   "solid": false,
   "visible": true,
@@ -31,7 +31,7 @@
     "path": "folders/Objects/Units.yy",
   },
   "resourceVersion": "1.0",
-  "name": "unitTrumper",
+  "name": "unitFbi",
   "tags": [],
   "resourceType": "GMObject",
 }

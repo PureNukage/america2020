@@ -17,13 +17,13 @@ function select(cellX, cellY) {
 	if Object > -1 {
 		selection = Object
 		Object.selected = true
-		debug.log("Selecting "+string_upper(object_get_name(selection.object_index)) + " id: "+string(selection))
+		//debug.log("Selecting "+string_upper(object_get_name(selection.object_index)) + " id: "+string(selection))
 	}	
 }
 
 function deselect() {
 	if selection > -1 {
-		debug.log("Deselecting "+string_upper(object_get_name(selection.object_index)) + " id: "+string(selection))
+		//debug.log("Deselecting "+string_upper(object_get_name(selection.object_index)) + " id: "+string(selection))
 		selection.selected = false	
 	}
 	selection = -1

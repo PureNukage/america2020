@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "s_trumper",
-    "path": "sprites/s_trumper/s_trumper.yy",
+    "name": "s_karen",
+    "path": "sprites/s_karen/s_karen.yy",
   },
   "solid": false,
   "visible": true,
@@ -31,7 +31,7 @@
     "path": "folders/Objects/Units.yy",
   },
   "resourceVersion": "1.0",
-  "name": "unitTrumper",
+  "name": "unitKaren",
   "tags": [],
   "resourceType": "GMObject",
 }
