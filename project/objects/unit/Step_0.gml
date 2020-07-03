@@ -39,3 +39,15 @@ switch(states)
 		
 	break
 }
+
+//	Determine direction to face
+if speed != 0 {
+	//	Left
+	if direction < 270 and direction > 90 {
+		image_xscale = -1
+	}
+	//	Right
+	else if direction >= 270 or direction <= 90 {
+		image_xscale = 1
+	}
+}

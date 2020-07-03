@@ -43,7 +43,7 @@ for(var w=0;w<gridWidth;w++) {
 		if objectGrid[# w, h] > -1 {
 			var Unit = objectGrid[# w, h]
 			with Unit {
-				draw_sprite(sprite_index, image_index, x, y)
+				draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, 0, c_white, 1)
 			}
 		}
 	}
@@ -63,14 +63,3 @@ if (mouseX < 0 or mouseX > gridWidth-1) or (mouseY < 0 or mouseY > gridHeight-1)
 	mouseX = -1
 	mouseY = -1
 }
-
-////	TEMP Spawn unit in a cell
-//if mouseX > -1 and mouseY > -1 and mouse_check_button_pressed(mb_right) {
-//	var XX = iso_to_scr_x(mouseX,mouseY)
-//	var YY = iso_to_scr_y(mouseX,mouseY) + (cellHeight/2)
-//	var Unit = instance_create_layer(XX,YY,"Instances",unit)
-//	Unit.cellX = mouseX
-//	Unit.cellY = mouseY
-//	objectGrid[# mouseX, mouseY] = Unit
-//	mp_grid_add_cell(mpGrid,Unit.cellX,Unit.cellY)
-//}

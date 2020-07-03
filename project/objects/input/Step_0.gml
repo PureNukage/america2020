@@ -1,26 +1,49 @@
 mouseLeftPress = mouse_check_button_pressed(mb_left)
 
+mouseRightPress = mouse_check_button_pressed(mb_right)
+
 mouseMiddle = mouse_check_button(mb_middle)
 mouseMiddlePress = mouse_check_button_pressed(mb_middle)
 mouseMiddleRelease = mouse_check_button_released(mb_middle)
 
-if mouseLeftPress {
-	if grid.mouseX > -1 and grid.mouseY > -1 and selection == -1 {
-		select(grid.mouseX, grid.mouseY)	
-	} else if (grid.mouseX == -1 or grid.mouseY == -1) and !gui.mouseover
-	or (grid.mouseX > -1 and grid.mouseY > -1 and grid.objectGrid[# grid.mouseX, grid.mouseY] == -1 and input.states == states.free and !gui.mouseover) {
-		deselect()
-		if input.states != states.free input.states = states.free
-	}
-}
+//if mouseLeftPress {
+//	if (grid.mouseX > -1 and grid.mouseY > -1) {
+//		if selection > -1 deselect()
+//		select(grid.mouseX, grid.mouseY)
+//	} else if (grid.mouseX == -1 or grid.mouseY == -1) and !gui.mouseover
+//	or (grid.mouseX > -1 and grid.mouseY > -1 and grid.objectGrid[# grid.mouseX, grid.mouseY] == -1 and input.states == states.free and !gui.mouseover) {
+//		deselect()
+//		if input.states != states.free input.states = states.free
+//	}
+//}
 
 switch(states)
 {
+	case states.free:
+		
+		//	Deselect unit
+		if selection > -1 and mouseRightPress {
+			deselect()	
+		}
+	
+		if mouseLeftPress {
+			if (grid.mouseX > -1 and grid.mouseY > -1) {
+				if selection > -1 deselect()
+				select(grid.mouseX, grid.mouseY)
+			} else if (grid.mouseX == -1 or grid.mouseY == -1) and !gui.mouseover
+			or (grid.mouseX > -1 and grid.mouseY > -1 and grid.objectGrid[# grid.mouseX, grid.mouseY] == -1 and input.states == states.free and !gui.mouseover) {
+				deselect()
+				if input.states != states.free input.states = states.free
+			}
+		}
+	break
 	case states.move:
-		//if mouseLeftPress and selection > -1 and (grid.mouseX > -1 and grid.mouseY > -1)
-		//and (selection.cellX != grid.mouseX or selection.cellY != grid.mouseY) {
-		//	selection.move(grid.mouseX, grid.mouseY)
-		//}
+		
+		//	Return to free state
+		if selection > -1 and mouseRightPress {
+			states = states.free	
+		}
+	
 		if selection > -1 and (grid.mouseX > -1 and grid.mouseY > -1)
 		and (selection.cellX != grid.mouseX or selection.cellY != grid.mouseY) {
 			//	If mouseMoved, lets calculate a path
@@ -39,7 +62,7 @@ switch(states)
 				} else {
 					//	How many points in this path
 					var points = path_get_number(path)-1
-					debug.log("This path has ["+ string(points) +"] points")
+					//debug.log("This path has ["+ string(points) +"] points")
 					mp_grid_add_cell(grid.mpGrid,selection.cellX,selection.cellY)
 					
 				}	

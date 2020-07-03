@@ -18,8 +18,11 @@ if on {
 		draw_text(xx,yy, "selection: "+string(selection))		yy += 15
 		if selection > -1 {
 			with selection {
-				if grid.mouseX > -1 and grid.mouseY > -1 draw_text(xx,yy, "distance: "+string(abs(point_distance(cellX,cellY,grid.mouseX,grid.mouseY)))) yy += 15
-				
+				if grid.mouseX > -1 and grid.mouseY > -1 {
+					draw_text(xx,yy, "distance: "+string(path_get_number(input.path)-1)) 
+					yy += 15
+				}
+				draw_text(xx,yy, "owner: " + object_get_name(owner)) yy += 15
 				
 			}
 		}

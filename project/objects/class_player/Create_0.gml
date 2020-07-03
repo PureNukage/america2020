@@ -14,6 +14,7 @@ function createUnit(_objectIndex, _instanceID, _hp, _hpMax, _cellX, _cellY, _nam
 	staminaMax = _staminaMax
 	weight = _weight
 	portrait = _portrait
+	owner = other.object_index
 	
 	function spawn(_cellX, _cellY) {
 		cellX = _cellX
@@ -29,6 +30,7 @@ function createUnit(_objectIndex, _instanceID, _hp, _hpMax, _cellX, _cellY, _nam
 		instanceID.staminaMax = staminaMax
 		instanceID.name = name
 		instanceID.portrait = portrait
+		instanceID.owner = owner
 		grid.objectGrid[# cellX, cellY] = instanceID
 		mp_grid_add_cell(grid.mpGrid,instanceID.cellX,instanceID.cellY)
 	}

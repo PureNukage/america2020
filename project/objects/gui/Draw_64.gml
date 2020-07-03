@@ -58,7 +58,7 @@ if input.selection > -1 {
 	var height = 256
 	draw_rectangle(X,Y,X+width,Y+height,false)
 
-	var scale = 13
+	var scale = 11
 	var sprite = input.selection.portrait
 	var image_width = sprite_get_width(sprite)*scale
 	var image_height = sprite_get_height(sprite)*scale
