@@ -15,6 +15,21 @@ if on {
 	}
 	
 	with input {
-		draw_text(xx,yy, "selection: "+string(selection))	
+		draw_text(xx,yy, "selection: "+string(selection))		yy += 15
+		if selection > -1 {
+			with selection {
+				if grid.mouseX > -1 and grid.mouseY > -1 draw_text(xx,yy, "distance: "+string(abs(point_distance(cellX,cellY,grid.mouseX,grid.mouseY)))) yy += 15
+				
+				
+			}
+		}
+	}
+	
+	with app {
+		draw_text(xx,yy, "zoom level: "+string(zoom_level)) 	yy += 15 
+		draw_text(xx,yy, "camera_border_x: "+string(camera_get_view_border_x(camera)))		yy += 15
+		draw_text(xx,yy, "camera_border_y: "+string(camera_get_view_border_y(camera)))	yy += 15
+		draw_text(xx,yy, "camera_view_x: "+string(camera_get_view_x(camera)))	yy += 15
+		draw_text(xx,yy, "camera_view_y: "+string(camera_get_view_y(camera)))	yy += 15
 	}
 }

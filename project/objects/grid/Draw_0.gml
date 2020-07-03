@@ -12,6 +12,15 @@ if (mouseX > -1 and mouseY > -1) {
 		else draw_set_color(c_yellow)
 	}
 	else draw_set_color(c_white)
+	//	Check stamina vs points if moving a unit
+	if input.states == states.move and input.selection > -1 and path_get_number(input.path)-1 > 0 {
+		var points = path_get_number(input.path)-1 
+		if input.selection.stamina >= points {
+			draw_set_color(c_white)	
+		} else {
+			draw_set_color(c_gray)	
+		}
+	}
 	var xx = iso_to_scr_x(mouseX,mouseY)
 	var yy = iso_to_scr_y(mouseX,mouseY)
 	draw_triangle(xx,yy,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
@@ -43,6 +52,13 @@ for(var w=0;w<gridWidth;w++) {
 ////	Calculate mouseX and mouseY
 mouseX = scr_x_to_iso(mouse_x,mouse_y)
 mouseY = scr_y_to_iso(mouse_x,mouse_y)
+if mouseX != mouseXPrevious or mouseY != mouseYPrevious {
+	mouseMoved = true
+	mouseXPrevious = mouseX
+	mouseYPrevious = mouseY
+} else {
+	mouseMoved = false	
+}
 if (mouseX < 0 or mouseX > gridWidth-1) or (mouseY < 0 or mouseY > gridHeight-1) {
 	mouseX = -1
 	mouseY = -1

@@ -73,7 +73,7 @@ instance_create_layer(0,0,Layer,player)
 	anchorX = -1
 	anchorY = -1
 	
-	zoom_level = 1
+	zoom_level = .65
 	default_zoom_width = camera_get_view_width(camera)
 	default_zoom_height = camera_get_view_height(camera)
 

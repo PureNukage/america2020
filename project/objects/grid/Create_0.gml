@@ -12,6 +12,9 @@ sY = room_height/3
 
 mouseX = -1
 mouseY = -1
+mouseMoved = false
+mouseXPrevious = -1
+mouseYPrevious = -1
 
 mpGrid = mp_grid_create(sX,sY,gridWidth,gridHeight,cellWidth,cellHeight)
 
@@ -70,4 +73,23 @@ function draw_grid() {
 		}
 	}	
 	surface_reset_target()
+}
+
+//	This function will convert a path into an isometric path
+function path_to_iso(path) {
+	
+	for(var p=0;p<path_get_number(path);p++) {
+		var pX = path_get_point_x(path, p)
+		var pY = path_get_point_y(path, p)
+			
+		mp_grid_get_cell(grid.mpGrid,pX,pY)
+			
+		var __cellX = floor( (pX - grid.sX)/grid.cellWidth )
+		var __cellY = floor( (pY - grid.sY)/grid.cellHeight )
+			
+		var newX = grid.iso_to_scr_x(__cellX, __cellY)
+		var newY = grid.iso_to_scr_y(__cellX, __cellY) + (grid.cellHeight/2)
+					
+		path_change_point(path, p, newX, newY, path_get_speed(path, p))	
+	}	
 }
