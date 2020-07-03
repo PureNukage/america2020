@@ -1,14 +1,7 @@
 switch(states) 
 {
 	case states.free:
-		//if selected and input.mouseLeftPress and (grid.mouseX > -1 and grid.mouseY > -1) 
-		//and (grid.mouseX != cellX or grid.mouseY != cellY) {
-			
-		//	if instance_exists(debugBeacon) with debugBeacon {
-		//		instance_destroy()
-		//	}
-
-		//}	
+		
 	break
 	case states.walk:
 	

@@ -1,4 +1,56 @@
+////	Draw turn order
+var centerX = display_get_gui_width()/2
+var centerY = 32
+var tileWidth = 64
+var tileHeight = 64
+var tileSpacer = 16
+var playerUnits = ds_list_size(game.playerTurnOrder)
+var enemyUnits = ds_list_size(game.enemyTurnOrder)
+var totalUnits = playerUnits + enemyUnits
+	
+var tileX = centerX - (totalUnits/2 * (tileWidth+tileSpacer))
+var tileY = centerY
+	
+var first = 0	//	0 = player, 1 = enemy
+var playerOrder = 0
+var enemyOrder = 0
+var Portrait = 0
+var Color = 0
+for(var t=0;t<totalUnits;t++) {
+	//	Players unit
+	if first == 0 {
+		Portrait = game.playerTurnOrder[| playerOrder].portrait
+		if player.team == left Color = c_stamina else Color = c_health
+	} 
+	//	Enemy unit
+	else {
+		Portrait = game.enemyTurnOrder[| enemyOrder].portrait
+		if enemy.team == left Color = c_stamina else Color = c_health
+	}
+	draw_set_color(c_white)
+	draw_rectangle(tileX,tileY,tileX+tileWidth,tileY+tileHeight,false)
+	draw_set_alpha(.6)
+	draw_set_color(Color)
+	draw_rectangle(tileX,tileY,tileX+tileWidth,tileY+tileHeight,false)
+	draw_set_alpha(1)
+	var Scale = 3
+	var spriteWidth = tileWidth - (sprite_get_width(Portrait)*Scale)
+	var spriteHeight = tileHeight - (sprite_get_height(Portrait)*Scale)
+	var spriteX = tileX + spriteWidth/2
+	var spriteY = tileY + spriteHeight/2
+	draw_sprite_ext(Portrait,0,spriteX,spriteY,Scale,Scale,0,c_white,1)
+		
+	tileX += tileWidth + tileSpacer
+		
+	if first == 0 playerOrder++
+	else enemyOrder++
+	first = !first
+	if playerOrder >= ds_list_size(game.playerTurnOrder) playerOrder = 0
+	if enemyOrder >= ds_list_size(game.enemyTurnOrder) enemyOrder = 0
+}
+
 if input.selection > -1 {
+	
 	draw_set_color(c_white)
 	var X = 1565
 	var Y = 27
@@ -7,7 +59,7 @@ if input.selection > -1 {
 	draw_rectangle(X,Y,X+width,Y+height,false)
 
 	var scale = 13
-	var sprite = s_bigred_head
+	var sprite = input.selection.portrait
 	var image_width = sprite_get_width(sprite)*scale
 	var image_height = sprite_get_height(sprite)*scale
 	var difference_in_width = width - image_width

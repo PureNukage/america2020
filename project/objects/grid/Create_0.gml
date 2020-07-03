@@ -4,8 +4,8 @@ cellHeight = 64
 gridWidth = room_width / cellWidth
 gridHeight = room_height / cellHeight
 
-gridWidth = 4
-gridHeight = 4
+gridWidth = 5
+gridHeight = 5
 
 sX = room_width/2
 sY = room_height/3

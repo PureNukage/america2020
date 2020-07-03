@@ -35,10 +35,12 @@ switch(states)
 				
 				if !mp_grid_path(grid.mpGrid,path,x1,y1,x2,y2,false) {
 					debug.log("Cannot form a path to the goal")
+					mp_grid_add_cell(grid.mpGrid,selection.cellX,selection.cellY)
 				} else {
 					//	How many points in this path
 					var points = path_get_number(path)-1
 					debug.log("This path has ["+ string(points) +"] points")
+					mp_grid_add_cell(grid.mpGrid,selection.cellX,selection.cellY)
 					
 				}	
 			}

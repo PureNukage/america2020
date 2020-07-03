@@ -8,6 +8,8 @@ instance_create_layer(0,0,Layer,debug)
 instance_create_layer(0,0,Layer,time)
 instance_create_layer(0,0,Layer,gui)
 instance_create_layer(0,0,Layer,player)
+instance_create_layer(0,0,Layer,enemy)
+instance_create_layer(0,0,Layer,game)
 
 #region Camera
 
