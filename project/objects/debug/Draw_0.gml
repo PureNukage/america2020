@@ -1,6 +1,6 @@
 if on {
 	
-	if instance_exists(unit) with unit {
+	if instance_exists(class_unit) with class_unit {
 		
 		////	Draw Path
 		if path_exists(path) {

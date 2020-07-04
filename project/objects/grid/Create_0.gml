@@ -10,6 +10,7 @@ gridHeight = 5
 sX = room_width/2
 sY = room_height/3
 
+mouseInGrid = false
 mouseX = -1
 mouseY = -1
 mouseMoved = false

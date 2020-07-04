@@ -7,6 +7,7 @@ if surface_exists(grid_surface) {
 
 ////	Draw mouse cell highlight
 if (mouseX > -1 and mouseY > -1) {
+	mouseInGrid = true
 	if objectGrid[# mouseX, mouseY] > -1 {
 		if input.selection == objectGrid[# mouseX, mouseY] {}
 		else draw_set_color(c_yellow)
@@ -25,6 +26,8 @@ if (mouseX > -1 and mouseY > -1) {
 	var yy = iso_to_scr_y(mouseX,mouseY)
 	draw_triangle(xx,yy,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
 	draw_triangle(xx,yy+cellHeight,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
+} else {
+	mouseInGrid = false	
 }
 
 ////	Draw selection cell highlight
@@ -54,6 +57,8 @@ mouseX = scr_x_to_iso(mouse_x,mouse_y)
 mouseY = scr_y_to_iso(mouse_x,mouse_y)
 if mouseX != mouseXPrevious or mouseY != mouseYPrevious {
 	mouseMoved = true
+	//	Check if we're inside the grid (solves one frame of 'lag')
+	if (mouseX > -1 and mouseX <= gridWidth-1 and mouseY > -1 and mouseY <= gridWidth-1) mouseInGrid = true
 	mouseXPrevious = mouseX
 	mouseYPrevious = mouseY
 } else {

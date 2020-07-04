@@ -8,66 +8,96 @@ mouseMiddleRelease = mouse_check_button_released(mb_middle)
 
 switch(states)
 {
-	case states.free:
+	#region Free
+		case states.free:
 		
-		//	Deselect unit
-		if selection > -1 and mouseRightPress {
-			deselect()	
-		}
-	
-		if mouseLeftPress {
-			if (grid.mouseX > -1 and grid.mouseY > -1) {
-				if selection > -1 deselect()
-				select(grid.mouseX, grid.mouseY)
-			} else if (grid.mouseX == -1 or grid.mouseY == -1) and !gui.mouseover
-			or (grid.mouseX > -1 and grid.mouseY > -1 and grid.objectGrid[# grid.mouseX, grid.mouseY] == -1 and input.states == states.free and !gui.mouseover) {
-				deselect()
-				if input.states != states.free input.states = states.free
+			//	Deselect unit
+			if selection > -1 and mouseRightPress {
+				deselect()	
 			}
-		}
-	break
-	case states.move:
-		
-		//	Return to free state
-		if selection > -1 and mouseRightPress {
-			states = states.free	
-		}
 	
-		if selection > -1 and (grid.mouseX > -1 and grid.mouseY > -1)
-		and (selection.cellX != grid.mouseX or selection.cellY != grid.mouseY) {
-			//	If mouseMoved, lets calculate a path
-			if grid.mouseMoved {
-				var x1 = grid.sX + (selection.cellX * grid.cellWidth) + (grid.cellWidth/2)
-				var y1 = grid.sY + (selection.cellY * grid.cellHeight) + (grid.cellHeight/2)
-	
-				var x2 = grid.sX + (grid.mouseX * grid.cellWidth) + (grid.cellWidth/2)
-				var y2 = grid.sY + (grid.mouseY * grid.cellHeight) + (grid.cellHeight/2)
-				
-				mp_grid_clear_cell(grid.mpGrid,selection.cellX,selection.cellY)
-				
-				if !mp_grid_path(grid.mpGrid,path,x1,y1,x2,y2,false) {
-					debug.log("Cannot form a path to the goal")
-					mp_grid_add_cell(grid.mpGrid,selection.cellX,selection.cellY)
-				} else {
-					//	How many points in this path
-					var points = path_get_number(path)-1
-					//debug.log("This path has ["+ string(points) +"] points")
-					mp_grid_add_cell(grid.mpGrid,selection.cellX,selection.cellY)
-					
-				}	
-			}
-			
-			//	If we have a path and enough stamina to cover it 
-			var points = path_get_number(path)-1
-			if selection.stamina >= points {
-				if mouseLeftPress {
-					selection.move(grid.mouseX,grid.mouseY)	
+			if mouseLeftPress {
+				if (grid.mouseX > -1 and grid.mouseY > -1) {
+					if selection > -1 deselect()
+					select(grid.mouseX, grid.mouseY)
+				} else if (grid.mouseX == -1 or grid.mouseY == -1) and !gui.mouseover
+				or (grid.mouseX > -1 and grid.mouseY > -1 and grid.objectGrid[# grid.mouseX, grid.mouseY] == -1 and input.states == states.free and !gui.mouseover) {
+					deselect()
+					if input.states != states.free input.states = states.free
 				}
 			}
-			
-		}
-	break
-	case states.combat:
+		break
+	#endregion
+	#region Move
+		case states.move:
 		
-	break
+			//	Return to free state
+			if selection > -1 and mouseRightPress {
+				states = states.free
+			}
+	
+			if selection > -1 and (grid.mouseX > -1 and grid.mouseY > -1)
+			and (selection.cellX != grid.mouseX or selection.cellY != grid.mouseY) {
+				//	If mouseMoved, lets calculate a path
+				if grid.mouseMoved {
+					mp_grid_clear_cell(grid.mpGrid,selection.cellX,selection.cellY)
+					if !pathfind(grid.mpGrid, path, selection.cellX, selection.cellY, grid.mouseX, grid.mouseY, true) {
+						
+					} else {
+						
+					}
+					mp_grid_add_cell(grid.mpGrid,selection.cellX,selection.cellY)
+				}
+			
+				//	If we have a path and enough stamina to cover it 
+				var points = path_get_number(path)-1
+				if selection.stamina >= points {
+					if mouseLeftPress {
+						selection.move(grid.mouseX,grid.mouseY, false, true, true)	
+					}
+				}
+			
+			}
+		break
+	#endregion
+	#region Combat
+		case states.combat:
+		
+			if mouseRightPress {
+				states = states.free
+				if gui.ability > -1 gui.ability = -1
+			}
+			
+			if selection > -1 {
+				
+				//	The mouse is in a cell!
+				if grid.mouseInGrid and (grid.mouseX != selection.cellX or grid.mouseY != selection.cellY) {
+					if grid.mouseMoved {
+						pathfind(grid.mpGrid, path, selection.cellX, selection.cellY, grid.mouseX, grid.mouseY, false)	
+					}
+					
+					if gui.ability > -1 {
+						var ability = selection.myAbilities[| gui.ability]
+						var range = ability.range
+					
+						//	This cell is not near us
+						var points = path_get_number(path)-1
+						if range < points {
+							debug.log("Can't attack here!")		
+						} else {
+							debug.log("Can attack here!")
+							if mouseLeftPress {
+								selection.activeAbility = ability.Function
+								debug.log("Unit "+string_upper(object_get_name(selection.object_index))+" is using ability "+string_upper(script_get_name(ability.Function)))
+							}
+						
+						}
+					}
+				}
+				
+				
+			}
+			
+		break
+	#endregion
 }

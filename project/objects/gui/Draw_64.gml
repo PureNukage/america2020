@@ -126,17 +126,41 @@ if input.selection > -1 {
 	var String = "Combat"
 	var XX = optionX - string_width(String)/2
 	var YY = optionY
-	if point_in_rectangle(gui_mouse_x,gui_mouse_y,XX,YY,XX+string_width(String),YY+string_height(String)-8) {
-		draw_set_color(c_white)	
-	} else {
-		draw_set_color(c_black)
-	}
+	draw_set_color(c_dkgray)
 	draw_text(optionX,optionY,String)
 
 	optionY += optionBuffer
 	
+	//	Draw abilities if they exist for this unit
+	var abilityCount = ds_list_size(input.selection.myAbilities)
+	for(var a=0;a<abilityCount;a++) {
+		var Ability = input.selection.myAbilities[| a]
+		var abilityName = Ability.name	
+		
+		var XX = optionX - string_width(String)/2
+		var YY = optionY
+		if point_in_rectangle(gui_mouse_x,gui_mouse_y,XX,YY,XX+string_width(abilityName),YY+string_height(abilityName)-1) {
+			if input.mouseLeftPress {
+				if input.states == states.combat {
+					input.states = states.free	
+					ability = -1
+				} else {
+					input.states = states.combat
+					ability = a
+				}
+			}
+			draw_set_color(c_white)
+		} else {
+			draw_set_color(c_black)
+		}
+		if ability == a draw_set_color(c_yellow)
+		
+		draw_text(optionX,optionY,abilityName)
+		optionY += optionBuffer
+	}
+	
 	if point_in_rectangle(gui_mouse_x,gui_mouse_y,X,Y,X+width,optionY) {
-		mouseover = true	
+		mouseover = true
 	} else mouseover = false
 }
 
