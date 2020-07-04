@@ -2,7 +2,7 @@
 
 units = ds_list_create()
 
-function createUnit(_objectIndex, _instanceID, _hp, _hpMax, _cellX, _cellY, _name, _stamina, _staminaMax, _weight, _portrait) constructor {
+function createUnit(_objectIndex, _instanceID, _hp, _hpMax, _cellX, _cellY, _name, _stamina, _staminaMax, _weight, _portrait, _sprite) constructor {
 	objectIndex= _objectIndex
 	instanceID = _instanceID
 	hp = _hp
@@ -14,6 +14,8 @@ function createUnit(_objectIndex, _instanceID, _hp, _hpMax, _cellX, _cellY, _nam
 	staminaMax = _staminaMax
 	weight = _weight
 	portrait = _portrait
+	sprite = _sprite
+	
 	owner = other.object_index
 	
 	function spawn(_cellX, _cellY) {
@@ -30,6 +32,7 @@ function createUnit(_objectIndex, _instanceID, _hp, _hpMax, _cellX, _cellY, _nam
 		instanceID.staminaMax = staminaMax
 		instanceID.name = name
 		instanceID.portrait = portrait
+		instanceID.sprite = sprite
 		instanceID.owner = owner
 		grid.objectGrid[# cellX, cellY] = instanceID
 		mp_grid_add_cell(grid.mpGrid,instanceID.cellX,instanceID.cellY)

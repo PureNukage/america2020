@@ -46,7 +46,11 @@ for(var w=0;w<gridWidth;w++) {
 		if objectGrid[# w, h] > -1 {
 			var Unit = objectGrid[# w, h]
 			with Unit {
+				if damaged {
+					shader_set(sdr_flash)	
+				}
 				draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, 0, c_white, 1)
+				shader_reset()
 			}
 		}
 	}

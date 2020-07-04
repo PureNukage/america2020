@@ -15,10 +15,15 @@ selected = false
 
 myAbilities = ds_list_create()
 activeAbility = -1
+activeAbilityIndex = -1
 
 meleeState = -1
 attackCellX = -1
 attackCellY = -1
+
+damaged = false
+damagedTime = -1
+damageDuration = 20
 
 moveGridData = false
 
@@ -26,10 +31,11 @@ states = states.free
 
 depth = -1
 
-function createAbility(_function, _name, _range) constructor {
+function createAbility(_function, _name, _range, _sprite) constructor {
 	Function = _function
 	name = _name
 	range = _range
+	sprite = _sprite
 }
 
 function move(_cellX, _cellY, freemove, staminaUse, __gridData, __altCellX, __altCellY) {

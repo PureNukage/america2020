@@ -56,6 +56,15 @@ if activeAbility > -1 {
 	}
 }
 
+//	Damage
+if damaged {
+	//	Done being damaged
+	if (time.stream - damagedTime) >= damageDuration {
+		damaged = false
+		damagedTime = -1
+	}
+}
+
 //	Determine direction to face
 if speed != 0 {
 	//	Left

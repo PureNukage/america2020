@@ -83,11 +83,12 @@ switch(states)
 						//	This cell is not near us
 						var points = path_get_number(path)-1
 						if range < points {
-							debug.log("Can't attack here!")		
+							if grid.mouseMoved debug.log("Can't attack here!")		
 						} else {
-							debug.log("Can attack here!")
+							if grid.mouseMoved debug.log("Can attack here!")
 							if mouseLeftPress {
 								selection.activeAbility = ability.Function
+								selection.activeAbilityIndex = gui.ability
 								debug.log("Unit "+string_upper(object_get_name(selection.object_index))+" is using ability "+string_upper(script_get_name(ability.Function)))
 							}
 						

@@ -1,10 +1,5 @@
 function melee() {
 	
-	var cellAttackX = -1
-	var cellAttackY = -1
-	
-	//var meleeState = 0	//	-1 == first frame; 0 == moving to; 1 == attacking; 2 == returning to
-	
 	switch(meleeState)
 	{
 		//	First Frame
@@ -13,7 +8,7 @@ function melee() {
 			attackCellY = grid.mouseY
 			move(attackCellX, attackCellY, true, false, false)
 			meleeState = 0
-			debug.log("COMBAT - MELEE First Frame")
+			debug.log("COMBAT - MELEE Moving to the attacked unit")
 			return true
 		break
 		//	Moving to the attacked unit
@@ -23,18 +18,30 @@ function melee() {
 					meleeState = 1
 					states = states.free
 					speed = 0
+					sprite_index = myAbilities[| activeAbilityIndex].sprite
+					debug.log("COMBAT - MELEE Attacking!")
 				}
 			}
-			debug.log("COMBAT - MELEE Moving to the attacked unit")
 			return true
 		break
 		//	Attacking
 		case 1:
 			if animation_end {
 				move(cellX, cellY, true, false, false, attackCellX, attackCellY)
-				meleeState = 2	
+				meleeState = 2
+				
+				//	Apply damage to attacked unit
+				var attackedUnit = grid.objectGrid[# attackCellX, attackCellY]
+				if attackedUnit > -1 and attackedUnit != id {
+					attackedUnit.hp -= 1
+					attackedUnit.damaged = true
+					attackedUnit.damagedTime = time.stream
+				}
+				
+				sprite_index = sprite
+				
+				debug.log("COMBAT - MELEE Returning to the home cell")
 			}
-			debug.log("COMBAT - MELEE Attacking")
 			return true
 		break
 		//	Return to the home cell
@@ -44,13 +51,16 @@ function melee() {
 					meleeState = -1
 					states = states.free
 					speed = 0
+					attackCellX = -1
+					attackCellY = -1
+					debug.log("COMBAT - MELEE Finished")
 					return false
 				}
 			}
-			debug.log("COMBAT - MELEE Returning to the home cell")
 			return true
 		break
 	}
+	
 }
 
 function shoot() {
