@@ -25,6 +25,7 @@ ds_grid_set_region(objectGrid,0,0,gridWidth-1,gridHeight-1,-1)
 grid_surface = -1
 
 cellRanges = ds_list_create()
+cells = ds_list_create()
 
 //	This function takes the isometric cell coordinate and returns the screen pixel X
 function iso_to_scr_x(cellX, cellY) {
@@ -101,8 +102,20 @@ function draw_cell_range(_x1, _y1, _x2, _y2, _color, _alpha) {
 	draw_reset()
 	
 }
+
+function createCell(_x, _y, _color, _alpha, _type) constructor {
+	color = _color
+	alpha = _alpha
+	cellX = _x
+	cellY = _y
+	cellRange = _type
+}
+
+function destroyCell(_index) {
+	ds_list_delete(cells, _index)
+}
 	
-function createCellRange(_color, _alpha, _x1, _y1, _x2, _y2, _type, __pulse) constructor {
+function createCellRange(_color, _alpha, _x1, _y1, _x2, _y2, _type) constructor {
 	color = _color
 	alpha = _alpha
 	x1 = _x1
@@ -111,7 +124,8 @@ function createCellRange(_color, _alpha, _x1, _y1, _x2, _y2, _type, __pulse) con
 	y2 = _y2
 	cellRange = _type
 	
-	pulseDuration = __pulse
+	pulseX = -1
+	pulseY = -1
 }
 	
 function destroyCellRange(_index) {

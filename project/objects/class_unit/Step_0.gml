@@ -100,6 +100,7 @@ if attackCellRange > -1 and (input.selection != id or input.states != states.com
 	attackCellRange = -1
 }
 
+//	Cleanup highlight cellRange
 if highlightCellRange > -1 and (object_index == unitKaren or object_index == unitSJW)
 and input.selection == id and gui.menuMouseover != 2 {
 	grid.destroyCellRange(highlightCellRange)

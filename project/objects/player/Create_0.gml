@@ -8,3 +8,5 @@ units[| 2] = new createUnit(unitAntifa, -1, 5, 5, -1, -1, "Antifa", 5, 5, 4, s_a
 units[| 0].spawn(4,0)
 units[| 1].spawn(4,2)
 units[| 2].spawn(4,4)
+
+turnCell = -1

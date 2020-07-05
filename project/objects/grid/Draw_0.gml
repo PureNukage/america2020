@@ -46,6 +46,15 @@ if !ds_list_empty(cellRanges) {
 	}
 }
 
+////	Draw cells
+if !ds_list_empty(cells) {
+	for(var c=0;c<ds_list_size(cells);c++) {
+		var cell = cells[| 0]
+		draw_cell(cell.cellX,cell.cellY, c_yellow, .5)
+	}
+	draw_reset()
+}
+
 ////	Render units
 for(var w=0;w<gridWidth;w++) {
 	for(var h=0;h<gridHeight;h++) {
