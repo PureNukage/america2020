@@ -1,0 +1,1 @@
+if (app.zoom_level <= .7) or selected drawHealthbar()

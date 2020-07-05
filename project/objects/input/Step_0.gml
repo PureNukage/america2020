@@ -81,7 +81,8 @@ switch(states)
 						var range = ability.range
 					
 						//	This cell is not near us
-						var points = path_get_number(path)-1
+						//var points = path_get_number(path)-1
+						var points = floor(point_distance(selection.cellX,selection.cellY,grid.mouseX,grid.mouseY))
 						if range < points {
 							if grid.mouseMoved debug.log("Can't attack here!")		
 						} else {

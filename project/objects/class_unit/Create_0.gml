@@ -25,6 +25,8 @@ attackCellY = -1
 damaged = false
 damagedTime = -1
 damageDuration = 20
+damageAmount = -1
+damagedPreviously = false
 
 moveGridData = false
 
@@ -52,6 +54,7 @@ function damage(_damage) {
 	hp -= _damage
 	damaged = true
 	damagedTime = time.stream
+	damageAmount = _damage
 }
 
 function die() {
@@ -139,4 +142,24 @@ function move(_cellX, _cellY, freemove, staminaUse, __gridData, __altCellX, __al
 	}
 	
 	if freemove mp_grid_destroy(Grid)
+}
+	
+function drawHealthbar() {
+		
+		draw_set_color(c_white)
+		var width = 32
+		var height = 8
+		var X = x - width/2
+		var Y = y - 70
+		draw_rectangle(X,Y,X+width,Y+height,false)
+		
+		if hp > 0 {
+			if owner == player draw_set_color(c_aqua)
+			else draw_set_color(c_health)
+			var healthWidth = (hp / hpMax) * width
+			draw_rectangle(X,Y,X+healthWidth,Y+height,false)
+		}
+		
+		draw_reset()
+		
 }

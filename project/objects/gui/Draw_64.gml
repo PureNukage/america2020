@@ -127,13 +127,13 @@ if input.selection > -1 and instance_exists(input.selection) {
 
 	optionY += optionBuffer
 
-	var String = "Combat"
-	var XX = optionX - string_width(String)/2
-	var YY = optionY
-	draw_set_color(c_dkgray)
-	draw_text(optionX,optionY,String)
+	//var String = "Combat"
+	//var XX = optionX - string_width(String)/2
+	//var YY = optionY
+	//draw_set_color(c_dkgray)
+	//draw_text(optionX,optionY,String)
 
-	optionY += optionBuffer
+	//optionY += optionBuffer
 	
 	//	Draw abilities if they exist for this unit
 	var abilityCount = ds_list_size(input.selection.myAbilities)
@@ -178,5 +178,4 @@ if input.selection > -1 and instance_exists(input.selection) {
 	} else mouseover = false
 }
 
-draw_set_font(-1)
-draw_set_halign(fa_left)
+draw_reset()

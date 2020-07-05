@@ -25,3 +25,20 @@ function pathfind(_grid, _path, _cellX, _cellY, _goalCellX, _goalCellY, obstacle
 		return true
 	}
 }
+	
+function createPopup(_x, _y, _string, _color, _duration) {
+	var Popup = instance_create_layer(_x,_y,"Instances",popup)
+	Popup.String = _string
+	Popup.duration = _duration
+	Popup.color = _color
+
+	debug.log("Creating POPUP with the string: "+string(Popup.String))
+}
+
+function draw_reset() {
+	draw_set_color(c_black)
+	draw_set_halign(fa_left)
+	draw_set_valign(fa_top)
+	draw_set_alpha(1)
+	draw_set_font(-1)
+}

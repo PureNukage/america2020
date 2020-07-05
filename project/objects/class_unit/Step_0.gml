@@ -61,14 +61,23 @@ if activeAbility > -1 {
 
 //	Damage
 if damaged {
+	//	First frame of being damaged
+	if damagedPreviously != damaged {
+		damagedPreviously = true
+		
+		createPopup(x,y-92,string(damageAmount),c_red,60)
+	}
+	
 	//	Done being damaged
 	if (time.stream - damagedTime) >= damageDuration {
 		damaged = false
 		damagedTime = -1
+		damageAmount = -1
+		damagedPreviously = false
 		
 		//	I am dead
 		if hp <= 0 {
-			die()	
+			die()
 		}
 	}
 }
