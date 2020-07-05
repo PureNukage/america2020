@@ -87,9 +87,10 @@ switch(states)
 						} else {
 							if grid.mouseMoved debug.log("Can attack here!")
 							if mouseLeftPress {
-								selection.activeAbility = ability.Function
-								selection.activeAbilityIndex = gui.ability
-								debug.log("Unit "+string_upper(object_get_name(selection.object_index))+" is using ability "+string_upper(script_get_name(ability.Function)))
+								selection.useAbility(ability)
+								//selection.activeAbility = ability.Function
+								//selection.activeAbilityIndex = gui.ability
+								//debug.log("Unit "+string_upper(object_get_name(selection.object_index))+" is using ability "+string_upper(script_get_name(ability.Function)))
 							}
 						
 						}

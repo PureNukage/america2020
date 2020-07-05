@@ -13,6 +13,7 @@
     {"id":{"name":"unitFbi","path":"objects/unitFbi/unitFbi.yy",},"order":5,},
     {"id":{"name":"fnt_ui_unitName","path":"fonts/fnt_ui_unitName/fnt_ui_unitName.yy",},"order":0,},
     {"id":{"name":"s_karen_head","path":"sprites/s_karen_head/s_karen_head.yy",},"order":16,},
+    {"id":{"name":"s_explosion","path":"sprites/s_explosion/s_explosion.yy",},"order":17,},
     {"id":{"name":"s_antifa_attack","path":"sprites/s_antifa_attack/s_antifa_attack.yy",},"order":12,},
     {"id":{"name":"unitTrumper","path":"objects/unitTrumper/unitTrumper.yy",},"order":3,},
     {"id":{"name":"s_karen","path":"sprites/s_karen/s_karen.yy",},"order":15,},

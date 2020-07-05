@@ -19,13 +19,17 @@ var Color = 0
 for(var t=0;t<totalUnits;t++) {
 	//	Players unit
 	if first == 0 {
-		Portrait = game.playerTurnOrder[| playerOrder].portrait
-		if player.team == left Color = c_stamina else Color = c_health
+		if !ds_list_empty(game.playerTurnOrder) {
+			Portrait = game.playerTurnOrder[| playerOrder].portrait
+			if player.team == left Color = c_stamina else Color = c_health
+		}
 	} 
 	//	Enemy unit
 	else {
-		Portrait = game.enemyTurnOrder[| enemyOrder].portrait
-		if enemy.team == left Color = c_stamina else Color = c_health
+		if !ds_list_empty(game.enemyTurnOrder) {
+			Portrait = game.enemyTurnOrder[| enemyOrder].portrait
+			if enemy.team == left Color = c_stamina else Color = c_health
+		}
 	}
 	draw_set_color(c_white)
 	draw_rectangle(tileX,tileY,tileX+tileWidth,tileY+tileHeight,false)
@@ -49,7 +53,7 @@ for(var t=0;t<totalUnits;t++) {
 	if enemyOrder >= ds_list_size(game.enemyTurnOrder) enemyOrder = 0
 }
 
-if input.selection > -1 {
+if input.selection > -1 and instance_exists(input.selection) {
 	
 	draw_set_color(c_white)
 	var X = 1565
@@ -145,8 +149,18 @@ if input.selection > -1 {
 					input.states = states.free	
 					ability = -1
 				} else {
-					input.states = states.combat
-					ability = a
+					//	Instant Use ability
+					if Ability.type == ability_instantUse {
+						ability = a
+						input.selection.useAbility(input.selection.myAbilities[| a])
+						ability = -1
+						input.states = states.free
+					} 
+					//	Point Target ability
+					else if Ability.type == ability_pointTarget {
+						input.states = states.combat
+						ability = a
+					}
 				}
 			}
 			draw_set_color(c_white)

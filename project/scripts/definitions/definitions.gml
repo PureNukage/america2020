@@ -6,6 +6,9 @@ enum states {
 	combat,
 }
 
+#macro ability_pointTarget 0 
+#macro ability_instantUse 1
+
 #macro gui_mouse_x device_mouse_x_to_gui(0)
 #macro gui_mouse_y device_mouse_y_to_gui(0)
 

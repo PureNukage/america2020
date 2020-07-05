@@ -15,9 +15,10 @@ selected = false
 
 myAbilities = ds_list_create()
 activeAbility = -1
+activeAbilityFunction = -1
 activeAbilityIndex = -1
 
-meleeState = -1
+attackState = -1
 attackCellX = -1
 attackCellY = -1
 
@@ -31,11 +32,49 @@ states = states.free
 
 depth = -1
 
-function createAbility(_function, _name, _range, _sprite) constructor {
+function createAbility(_function, _name, _damage, _range, _sprite, _type) constructor {
 	Function = _function
 	name = _name
+	damage = _damage
 	range = _range
 	sprite = _sprite
+	type = _type
+}
+
+function useAbility(_ability) {
+	activeAbility = _ability
+	activeAbilityFunction = _ability.Function
+	activeAbilityIndex = gui.ability
+	debug.log("Unit "+string_upper(object_get_name(object_index))+" is using ability "+string_upper(script_get_name(_ability.Function)))
+}
+
+function die() {
+	
+	//	Deselect ourselves
+	if input.selection == id {
+		input.deselect()
+	}
+	
+	//	Remove our grid data
+	grid.objectGrid[# cellX, cellY] = -1
+	mp_grid_clear_cell(grid.mpGrid, cellX, cellY)
+	
+	//	Remove ourselves from turn list
+	if owner == player var list = game.playerTurnOrder
+	else var list = game.enemyTurnOrder
+	var index = -1
+	for(var i=0;i<ds_list_size(list);i++) {
+		if list[| i].instanceID = id {
+			index = i	
+		}
+	}
+	ds_list_delete(list, index)
+	
+	
+	//	...and finally destroy this object
+	instance_destroy()
+	
+	
 }
 
 function move(_cellX, _cellY, freemove, staminaUse, __gridData, __altCellX, __altCellY) {

@@ -50,9 +50,11 @@ switch(states)
 
 //	Abilities
 if activeAbility > -1 {
-	var stillGoing = script_execute(activeAbility)
+	var stillGoing = script_execute(activeAbilityFunction)
 	if !stillGoing {
-		activeAbility = -1	
+		activeAbility = -1
+		activeAbilityFunction = -1
+		activeAbilityIndex = -1
 	}
 }
 
@@ -62,6 +64,11 @@ if damaged {
 	if (time.stream - damagedTime) >= damageDuration {
 		damaged = false
 		damagedTime = -1
+		
+		//	I am dead
+		if hp <= 0 {
+			die()	
+		}
 	}
 }
 
