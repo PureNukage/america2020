@@ -52,6 +52,7 @@ switch(states)
 if activeAbility > -1 {
 	var stillGoing = script_execute(activeAbilityFunction)
 	if !stillGoing {
+		attackState = -1
 		activeAbility = -1
 		activeAbilityFunction = -1
 		activeAbilityIndex = -1

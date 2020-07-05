@@ -33,9 +33,10 @@ function melee() {
 				//	Apply damage to attacked unit
 				var attackedUnit = grid.objectGrid[# attackCellX, attackCellY]
 				if attackedUnit > -1 and attackedUnit != id {
-					attackedUnit.hp -= 1
-					attackedUnit.damaged = true
-					attackedUnit.damagedTime = time.stream
+					attackedUnit.damage(activeAbility.damage)
+					//attackedUnit.hp -= 1
+					//attackedUnit.damaged = true
+					//attackedUnit.damagedTime = time.stream
 				}
 				
 				sprite_index = sprite
@@ -65,10 +66,40 @@ function melee() {
 
 function shoot() {
 	
+	//	First frame
+	if attackState == -1 {
+		sprite_index = activeAbility.sprite
+		
+		//	Apply damage to attacked unit
+		attackCellX = grid.mouseX
+		attackCellY = grid.mouseY
+		
+		//	Get direction we're shooting
+		var XX = grid.iso_to_scr_x(attackCellX, attackCellY)
+		if XX < x image_xscale = -1
+		else image_xscale = 1
+		
+		var attackedUnit = grid.objectGrid[# attackCellX, attackCellY]
+		if attackedUnit > -1 and attackedUnit != id {
+			attackedUnit.damage(activeAbility.damage)
+		}
+		
+		attackState = 0
+	}
+	
+	if animation_end {
+		
+		sprite_index = sprite
+		return false
+	} else {
+		
+		return true	
+	}
+	
 }	
 
 function explode() {
-	sprite_index = s_explosion
+	sprite_index = activeAbility.sprite
 	
 	//	Apply the damage to exploded targets
 	if attackState == -1 {
@@ -82,9 +113,10 @@ function explode() {
 				if (w > -1 and w < grid.gridWidth) and (h > -1 and h < grid.gridHeight) {
 					if grid.objectGrid[# w, h] > -1 and grid.objectGrid[# w, h] != id {
 						var damagedUnit = grid.objectGrid[# w, h]
-						damagedUnit.hp -= activeAbility.damage
-						damagedUnit.damaged = true
-						damagedUnit.damagedTime = time.stream
+						damagedUnit.damage(activeAbility.damage)
+						//damagedUnit.hp -= activeAbility.damage
+						//damagedUnit.damaged = true
+						//damagedUnit.damagedTime = time.stream
 					}
 				}
 			}

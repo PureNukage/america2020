@@ -47,6 +47,12 @@ function useAbility(_ability) {
 	activeAbilityIndex = gui.ability
 	debug.log("Unit "+string_upper(object_get_name(object_index))+" is using ability "+string_upper(script_get_name(_ability.Function)))
 }
+	
+function damage(_damage) {
+	hp -= _damage
+	damaged = true
+	damagedTime = time.stream
+}
 
 function die() {
 	
