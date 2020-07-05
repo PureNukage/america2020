@@ -21,12 +21,15 @@ activeAbilityIndex = -1
 attackState = -1
 attackCellX = -1
 attackCellY = -1
+attackCellRange = -1
 
 damaged = false
 damagedTime = -1
 damageDuration = 20
 damageAmount = -1
 damagedPreviously = false
+
+highlightCellRange = -1
 
 moveGridData = false
 

@@ -15,6 +15,7 @@ if on {
 	}
 	
 	with input {
+		draw_text(xx,yy, "menuMouseover: "+string(gui.menuMouseover)) yy += 15
 		draw_text(xx,yy, "selection: "+string(selection))		yy += 15
 		if selection > -1 {
 			with selection {

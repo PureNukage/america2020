@@ -24,6 +24,8 @@ ds_grid_set_region(objectGrid,0,0,gridWidth-1,gridHeight-1,-1)
 
 grid_surface = -1
 
+cellRanges = ds_list_create()
+
 //	This function takes the isometric cell coordinate and returns the screen pixel X
 function iso_to_scr_x(cellX, cellY) {
 	return sX + (cellX - cellY) * cellWidth
@@ -74,6 +76,46 @@ function draw_grid() {
 		}
 	}	
 	surface_reset_target()
+}
+	
+function draw_cell(_cellX, _cellY, _color, _alpha) {
+	draw_set_color(_color)
+	draw_set_alpha(_alpha)
+	
+	var xx = iso_to_scr_x(_cellX,_cellY)
+	var yy = iso_to_scr_y(_cellX,_cellY)
+	draw_triangle(xx,yy,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
+	draw_triangle(xx,yy+cellHeight,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
+}
+	
+function draw_cell_range(_x1, _y1, _x2, _y2, _color, _alpha) {
+	
+	for(var w=_x1;w<=_x2;w++) {
+		for(var h=_y1;h<=_y2;h++) {
+			if (w > -1 and w < gridWidth) and (h > -1 and h < gridHeight) {
+				draw_cell(w, h, _color, _alpha)
+			}
+		}
+	}
+	
+	draw_reset()
+	
+}
+	
+function createCellRange(_color, _alpha, _x1, _y1, _x2, _y2, _type, __pulse) constructor {
+	color = _color
+	alpha = _alpha
+	x1 = _x1
+	y1 = _y1
+	x2 = _x2
+	y2 = _y2
+	cellRange = _type
+	
+	pulseDuration = __pulse
+}
+	
+function destroyCellRange(_index) {
+	ds_list_delete(cellRanges, _index)
 }
 
 //	This function will convert a path into an isometric path

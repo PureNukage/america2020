@@ -8,24 +8,23 @@ if surface_exists(grid_surface) {
 ////	Draw mouse cell highlight
 if (mouseX > -1 and mouseY > -1) {
 	mouseInGrid = true
+	var color = -1
 	if objectGrid[# mouseX, mouseY] > -1 {
 		if input.selection == objectGrid[# mouseX, mouseY] {}
-		else draw_set_color(c_yellow)
+		else color = c_yellow
 	}
-	else draw_set_color(c_white)
+	else color = c_white
 	//	Check stamina vs points if moving a unit
 	if input.states == states.move and input.selection > -1 and path_get_number(input.path)-1 > 0 {
 		var points = path_get_number(input.path)-1 
 		if input.selection.stamina >= points {
-			draw_set_color(c_white)	
+			color = c_white
 		} else {
-			draw_set_color(c_gray)	
+			color = c_gray
 		}
 	}
-	var xx = iso_to_scr_x(mouseX,mouseY)
-	var yy = iso_to_scr_y(mouseX,mouseY)
-	draw_triangle(xx,yy,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
-	draw_triangle(xx,yy+cellHeight,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
+	draw_cell(mouseX, mouseY, color, 1)
+	
 } else {
 	mouseInGrid = false	
 }
@@ -37,6 +36,14 @@ if input.selection > -1 {
 	var yy = iso_to_scr_y(input.selection.cellX,input.selection.cellY)
 	draw_triangle(xx,yy,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
 	draw_triangle(xx,yy+cellHeight,xx+cellWidth,yy+cellHeight/2,xx-cellWidth,yy+cellHeight/2,false)
+}
+
+////	Draw cellRanges 
+if !ds_list_empty(cellRanges) {
+	for(var c=0;c<ds_list_size(cellRanges);c++) {
+		var cell = cellRanges[| c]
+		draw_cell_range(cell.x1,cell.y1,cell.x2,cell.y2,cell.color,cell.alpha)
+	}
 }
 
 ////	Render units

@@ -93,3 +93,16 @@ if speed != 0 {
 		image_xscale = 1
 	}
 }
+	
+//	Cleanup cellRange
+if attackCellRange > -1 and (input.selection != id or input.states != states.combat) {
+	grid.destroyCellRange(attackCellRange)
+	attackCellRange = -1
+}
+
+if highlightCellRange > -1 and (object_index == unitKaren or object_index == unitSJW)
+and input.selection == id and gui.menuMouseover != 2 {
+	grid.destroyCellRange(highlightCellRange)
+	highlightCellRange = -1
+	debug.log("Destroying cellRange!")
+}

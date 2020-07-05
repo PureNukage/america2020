@@ -6,6 +6,11 @@ enum states {
 	combat,
 }
 
+enum cellRange {
+	attackDistance,
+	ping,
+}
+
 #macro ability_pointTarget 0 
 #macro ability_instantUse 1
 

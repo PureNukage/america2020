@@ -55,6 +55,8 @@ for(var t=0;t<totalUnits;t++) {
 
 if input.selection > -1 and instance_exists(input.selection) {
 	
+	var menuMouseoverFrame = false
+	
 	draw_set_color(c_white)
 	var X = 1565
 	var Y = 27
@@ -160,9 +162,34 @@ if input.selection > -1 and instance_exists(input.selection) {
 					else if Ability.type == ability_pointTarget {
 						input.states = states.combat
 						ability = a
+						var x1 = input.selection.cellX - Ability.range		var y1 = input.selection.cellY - Ability.range
+						var x2 = input.selection.cellX + Ability.range		var y2 = input.selection.cellY + Ability.range
+						var _cellRange = new grid.createCellRange(c_lime,.5,x1,y1,x2,y2,cellRange.attackDistance)
+						ds_list_add(grid.cellRanges, _cellRange)
+						input.selection.attackCellRange = ds_list_find_index(grid.cellRanges, _cellRange)
 					}
 				}
 			}
+		
+			//	first frame hover
+			if (menuMouseover != (2 + a) and !menuMouseoverFrame) {
+				menuMouseover = 2 + a
+				
+				#region create cellRange if the ability is instantUse
+				if Ability.type == ability_instantUse and input.selection.highlightCellRange == -1 {
+						var x1 = input.selection.cellX - Ability.range
+						var y1 = input.selection.cellY - Ability.range
+						var x2 = input.selection.cellX + Ability.range
+						var y2 = input.selection.cellY + Ability.range
+						var _cellRange = new grid.createCellRange(c_lime,.5,x1,y1,x2,y2,cellRange.attackDistance)
+						ds_list_add(grid.cellRanges, _cellRange)
+						input.selection.highlightCellRange = ds_list_find_index(grid.cellRanges, _cellRange)
+						debug.log("Creating cellRange!")
+				}
+				#endregion
+			}
+
+			menuMouseoverFrame = true
 			draw_set_color(c_white)
 		} else {
 			draw_set_color(c_black)
@@ -172,6 +199,8 @@ if input.selection > -1 and instance_exists(input.selection) {
 		draw_text(optionX,optionY,abilityName)
 		optionY += optionBuffer
 	}
+	
+	if !menuMouseoverFrame and menuMouseover > -1 menuMouseover = -1
 	
 	if point_in_rectangle(gui_mouse_x,gui_mouse_y,X,Y,X+width,optionY) {
 		mouseover = true
