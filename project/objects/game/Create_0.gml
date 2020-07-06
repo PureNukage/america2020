@@ -50,7 +50,12 @@ function calculateTurnOrder() {
 function endTurn() {
 	
 	//	move unit to end of turn list
-	ds_list_add(turnList, turnUnit)
+	var unitObject = -1
+	for(var i=0;i<ds_list_size(turnList);i++) {
+		var object = turnList[| i]
+		if object.instanceID == turnUnit unitObject = object
+	}
+	ds_list_add(turnList, unitObject)
 	ds_list_delete(turnList, 0)
 	
 	//	Change players turns
@@ -62,7 +67,7 @@ function endTurn() {
 		turnPlayer = player
 		turnList = playerTurnOrder	
 	}
-	turnUnit = turnList[| 0]
+	turnUnit = turnList[| 0].instanceID
 	
 	//	return input to free
 	if input.states != states.free {

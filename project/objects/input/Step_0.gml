@@ -92,6 +92,8 @@ switch(states)
 							} else {
 								if grid.mouseMoved debug.log("Can attack here!")
 								if mouseLeftPress {
+									selection.attackCellX = grid.mouseX
+									selection.attackCellY = grid.mouseY
 									selection.useAbility(ability)
 									input.selection.stamina -= cost
 								}

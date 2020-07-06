@@ -4,8 +4,6 @@ function melee() {
 	{
 		//	First Frame
 		case -1:
-			attackCellX = grid.mouseX
-			attackCellY = grid.mouseY
 			move(attackCellX, attackCellY, true, false, false)
 			attackState = 0
 			debug.log("COMBAT - MELEE Moving to the attacked unit")
@@ -69,11 +67,7 @@ function shoot() {
 	//	First frame
 	if attackState == -1 {
 		sprite_index = activeAbility.sprite
-		
-		//	Apply damage to attacked unit
-		attackCellX = grid.mouseX
-		attackCellY = grid.mouseY
-		
+
 		//	Get direction we're shooting
 		var XX = grid.iso_to_scr_x(attackCellX, attackCellY)
 		if XX < x image_xscale = -1
