@@ -11,7 +11,9 @@ var totalUnits = playerUnits + enemyUnits
 var tileX = centerX - (totalUnits/2 * (tileWidth+tileSpacer))
 var tileY = centerY
 	
-var first = 0	//	0 = player, 1 = enemy
+if game.turnPlayer == player var first = 0
+else var first = 1			//	0 = player, 1 = enemy
+
 var playerOrder = 0
 var enemyOrder = 0
 var Portrait = 0
@@ -102,102 +104,103 @@ if input.selection > -1 and instance_exists(input.selection) {
 	var optionX = X+width/2
 	var optionY = Y+height+16+64+64+32
 
-
-	var String = "Move"
-	var XX = optionX - string_width(String)/2
-	var YY = optionY
-	if point_in_rectangle(gui_mouse_x,gui_mouse_y,XX,YY,XX+string_width(String),YY+string_height(String)-8) {
-		draw_set_color(c_white)
-		if input.mouseLeftPress {
-			if input.states == states.move {
-				input.states = states.free	
-			} else {
-				input.states = states.move
-			}
-		}
-	} else {
-		draw_set_color(c_black)
-	}
-	if input.states == states.move draw_set_color(c_yellow)
-	draw_text(optionX,optionY,String)
-
-	////	Debug
-	//draw_set_alpha(.5)
-	//draw_set_color(c_red)
-	//draw_rectangle(XX,YY,XX+string_width(String),YY+string_height(String),false)
-	//draw_set_alpha(1)
-
-	optionY += optionBuffer
-
-	//var String = "Combat"
-	//var XX = optionX - string_width(String)/2
-	//var YY = optionY
-	//draw_set_color(c_dkgray)
-	//draw_text(optionX,optionY,String)
-
-	//optionY += optionBuffer
-	
-	//	Draw abilities if they exist for this unit
-	var abilityCount = ds_list_size(input.selection.myAbilities)
-	for(var a=0;a<abilityCount;a++) {
-		var Ability = input.selection.myAbilities[| a]
-		var abilityName = Ability.name	
-		
+	if input.selection.owner == player {
+		var String = "Move"
 		var XX = optionX - string_width(String)/2
 		var YY = optionY
-		if point_in_rectangle(gui_mouse_x,gui_mouse_y,XX,YY,XX+string_width(abilityName),YY+string_height(abilityName)-1) {
-			if input.mouseLeftPress {
-				if input.states == states.combat {
-					input.states = states.free	
-					ability = -1
-				} else {
-					//	Instant Use ability
-					if Ability.type == ability_instantUse {
-						ability = a
-						input.selection.useAbility(input.selection.myAbilities[| a])
-						ability = -1
-						input.states = states.free
-					} 
-					//	Point Target ability
-					else if Ability.type == ability_pointTarget {
-						input.states = states.combat
-						ability = a
-						var x1 = input.selection.cellX - Ability.range		var y1 = input.selection.cellY - Ability.range
-						var x2 = input.selection.cellX + Ability.range		var y2 = input.selection.cellY + Ability.range
-						var _cellRange = new grid.createCellRange(c_lime,.5,x1,y1,x2,y2,cellRange.attackDistance)
-						ds_list_add(grid.cellRanges, _cellRange)
-						input.selection.attackCellRange = ds_list_find_index(grid.cellRanges, _cellRange)
-					}
-				}
-			}
-		
-			//	first frame hover
-			if (menuMouseover != (2 + a) and !menuMouseoverFrame) {
-				menuMouseover = 2 + a
-				
-				#region create cellRange if the ability is instantUse
-				if Ability.type == ability_instantUse and input.selection.highlightCellRange == -1 {
-						var x1 = input.selection.cellX - Ability.range
-						var y1 = input.selection.cellY - Ability.range
-						var x2 = input.selection.cellX + Ability.range
-						var y2 = input.selection.cellY + Ability.range
-						var _cellRange = new grid.createCellRange(c_lime,.5,x1,y1,x2,y2,cellRange.attackDistance)
-						ds_list_add(grid.cellRanges, _cellRange)
-						input.selection.highlightCellRange = ds_list_find_index(grid.cellRanges, _cellRange)
-						debug.log("Creating cellRange!")
-				}
-				#endregion
-			}
-
-			menuMouseoverFrame = true
+		if point_in_rectangle(gui_mouse_x,gui_mouse_y,XX,YY,XX+string_width(String),YY+string_height(String)-8) {
 			draw_set_color(c_white)
+			if input.mouseLeftPress and game.turnUnit == input.selection {
+				if input.states == states.move {
+					input.states = states.free	
+				} else {
+					input.states = states.move
+				}
+			}
 		} else {
 			draw_set_color(c_black)
 		}
-		if ability == a draw_set_color(c_yellow)
-		
-		draw_text(optionX,optionY,abilityName)
+		if input.states == states.move draw_set_color(c_yellow)
+		draw_text(optionX,optionY,String)
+
+		////	Debug
+		//draw_set_alpha(.5)
+		//draw_set_color(c_red)
+		//draw_rectangle(XX,YY,XX+string_width(String),YY+string_height(String),false)
+		//draw_set_alpha(1)
+
 		optionY += optionBuffer
+
+		//var String = "Combat"
+		//var XX = optionX - string_width(String)/2
+		//var YY = optionY
+		//draw_set_color(c_dkgray)
+		//draw_text(optionX,optionY,String)
+
+		//optionY += optionBuffer
+	
+		//	Draw abilities if they exist for this unit
+		var abilityCount = ds_list_size(input.selection.myAbilities)
+		for(var a=0;a<abilityCount;a++) {
+			var Ability = input.selection.myAbilities[| a]
+			var abilityName = Ability.name	
+		
+			var XX = optionX - string_width(String)/2
+			var YY = optionY
+			if point_in_rectangle(gui_mouse_x,gui_mouse_y,XX,YY,XX+string_width(abilityName),YY+string_height(abilityName)-1) {
+				if input.mouseLeftPress and game.turnUnit == input.selection {
+					if input.states == states.combat {
+						input.states = states.free	
+						ability = -1
+					} else {
+						//	Instant Use ability
+						if Ability.type == ability_instantUse {
+							ability = a
+							input.selection.useAbility(input.selection.myAbilities[| a])
+							ability = -1
+							input.states = states.free
+						} 
+						//	Point Target ability
+						else if Ability.type == ability_pointTarget {
+							input.states = states.combat
+							ability = a
+							var x1 = input.selection.cellX - Ability.range		var y1 = input.selection.cellY - Ability.range
+							var x2 = input.selection.cellX + Ability.range		var y2 = input.selection.cellY + Ability.range
+							var _cellRange = new grid.createCellRange(c_lime,.5,x1,y1,x2,y2,cellRange.attackDistance)
+							ds_list_add(grid.cellRanges, _cellRange)
+							input.selection.attackCellRange = ds_list_find_index(grid.cellRanges, _cellRange)
+						}
+					}
+				}
+		
+				//	first frame hover
+				if (menuMouseover != (2 + a) and !menuMouseoverFrame) {
+					menuMouseover = 2 + a
+				
+					#region create cellRange if the ability is instantUse
+					if Ability.type == ability_instantUse and input.selection.highlightCellRange == -1 {
+							var x1 = input.selection.cellX - Ability.range
+							var y1 = input.selection.cellY - Ability.range
+							var x2 = input.selection.cellX + Ability.range
+							var y2 = input.selection.cellY + Ability.range
+							var _cellRange = new grid.createCellRange(c_lime,.5,x1,y1,x2,y2,cellRange.attackDistance)
+							ds_list_add(grid.cellRanges, _cellRange)
+							input.selection.highlightCellRange = ds_list_find_index(grid.cellRanges, _cellRange)
+							debug.log("Creating cellRange!")
+					}
+					#endregion
+				}
+
+				menuMouseoverFrame = true
+				draw_set_color(c_white)
+			} else {
+				draw_set_color(c_black)
+			}
+			if ability == a draw_set_color(c_yellow)
+		
+			draw_text(optionX,optionY,abilityName)
+			optionY += optionBuffer
+		}
 	}
 	
 	if !menuMouseoverFrame and menuMouseover > -1 menuMouseover = -1

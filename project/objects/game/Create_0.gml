@@ -1,4 +1,7 @@
-turn = 0 
+turn = 0
+turnPlayer = -1
+turnUnit = -1
+turnList = -1
 playerTurnOrder = ds_list_create()
 enemyTurnOrder = ds_list_create()
 
@@ -43,5 +46,28 @@ function calculateTurnOrder() {
 	
 	
 }
+	
+function endTurn() {
+	
+	//	move unit to end of turn list
+	ds_list_add(turnList, turnUnit)
+	ds_list_delete(turnList, 0)
+	
+	//	Change players turns
+	if turnPlayer == player {
+		turnPlayer = enemy
+		turnList = enemyTurnOrder
+	}
+	else {
+		turnPlayer = player
+		turnList = playerTurnOrder	
+	}
+	turnUnit = turnList[| 0]
+	
+}
 
 calculateTurnOrder()
+
+turnPlayer = player
+turnList = playerTurnOrder
+turnUnit = turnList[| 0].instanceID

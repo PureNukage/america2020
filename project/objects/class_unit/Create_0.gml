@@ -37,13 +37,14 @@ states = states.free
 
 depth = -1
 
-function createAbility(_function, _name, _damage, _range, _sprite, _type) constructor {
+function createAbility(_function, _name, _damage, _cost, _range, _sprite, _type) constructor {
 	Function = _function
 	name = _name
 	damage = _damage
 	range = _range
 	sprite = _sprite
 	type = _type
+	cost = _cost
 }
 
 function useAbility(_ability) {

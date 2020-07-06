@@ -22,6 +22,8 @@ switch(states)
 					moveGridData = false
 				}
 				
+				if activeAbility == -1 and stamina <= 0 game.endTurn()
+				
 				speed = 0
 			} else {
 				x_goto = path_get_point_x(path,pos)
@@ -56,6 +58,8 @@ if activeAbility > -1 {
 		activeAbility = -1
 		activeAbilityFunction = -1
 		activeAbilityIndex = -1
+		
+		if stamina <= 0 game.endTurn()
 	}
 }
 

@@ -79,18 +79,24 @@ switch(states)
 					if gui.ability > -1 {
 						var ability = selection.myAbilities[| gui.ability]
 						var range = ability.range
-					
-						//	This cell is not near us
-						//var points = path_get_number(path)-1
-						var points = floor(point_distance(selection.cellX,selection.cellY,grid.mouseX,grid.mouseY))
-						if range < points {
-							if grid.mouseMoved debug.log("Can't attack here!")		
-						} else {
-							if grid.mouseMoved debug.log("Can attack here!")
-							if mouseLeftPress {
-								selection.useAbility(ability)
-							}
+						var cost = ability.cost
 						
+						if input.selection.stamina < cost {
+							if grid.mouseMoved debug.log("Don't have enough stamina to use this ability")
+						} else {
+							//	This cell is not near us
+							//var points = path_get_number(path)-1
+							var points = floor(point_distance(selection.cellX,selection.cellY,grid.mouseX,grid.mouseY))
+							if range < points {
+								if grid.mouseMoved debug.log("Can't attack here!")		
+							} else {
+								if grid.mouseMoved debug.log("Can attack here!")
+								if mouseLeftPress {
+									selection.useAbility(ability)
+									input.selection.stamina -= cost
+								}
+						
+							}
 						}
 					}
 				}
