@@ -64,6 +64,14 @@ function endTurn() {
 	}
 	turnUnit = turnList[| 0]
 	
+	//	return input to free
+	if input.states != states.free {
+		input.states = states.free
+		gui.ability = -1
+	}
+	
+	turn++
+	
 }
 
 calculateTurnOrder()
